@@ -1,0 +1,148 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 head">
+      <h2 class="text text-capitalize"> Monti hall puzzle </h2>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-info ">
+            <thead>
+              <tr class="text">
+                <td>(A)</td>
+
+
+                <td>(B)</td>
+
+
+                <td>(C)</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <a id="A" href="#" (click)="CardOnclick($event)">
+                    <img id="A" class="doors" src="{{dorAimg}}" />
+                  </a>
+
+                </td>
+                <td>
+                  <a href="#" (click)="CardOnclick($event)">
+                    <img id="B" class="doors" src="{{dorBimg}}" />
+                  </a>
+                </td>
+                <td>
+                  <a href="#" (click)="CardOnclick($event)">
+                    <img id="C" class="doors" src="{{dorCimg}}" />
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-12">
+          <span id="dilg" [style.display]="DisplayDialog ? 'block' : 'none'" class=" dialog">
+            <a class="btn btn-success dialogbtn" (click)="SwithSelection()"> Switch</a>
+
+
+            <a class="btn btn-warning dialogbtn" (click)="KeepSelection()"> Keep</a>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <table class="table table-striped">
+
+        <!--{"All-win-per" ,winspc },
+            {"All-loss-per" ,losspc },
+            {"Keep-win-per", Keepwinspc },
+            {"Keep-Los-per", KeepLossPc },
+            {"Switch-win-per",SwithWinspc },
+            {"Switch-Los-per", Switchlospc },
+            {"WINS",Wins },
+            {"LOSS",Los },
+            {"Played",Plays },
+            {"Switch" , Switchs},
+            {"Keep", keep },
+            {"Switch-wins",SwitchWins },
+            {"Switch-Loss",SwithLoss },
+            {"keep-wins",keepWins },
+            {"keep-Loss",keepLoss } -->
+
+        <div class="col-md-8">
+          <p class="text text-success font-weight-bold ">WINS: {{ gamedata['WINS'] }}</p>
+          <p class="text text-danger font-weight-bold ">LOSS: {{ gamedata['LOSS'] }}</p>
+          <p class="text text-success font-weight-bold ">WIN Percentage : {{ gamedata['All-win-per'] }} %</p>
+          <p class="text text-danger font-weight-bold ">Loss Percentage : {{ gamedata['All-loss-per'] }} %</p>
+
+          <p class="text text-info ">Keep WIN Percentage : {{ gamedata['Keep-win-per'] }} % </p>
+          <p class="text text-info "> Keep LOS Percentage : {{ gamedata['Keep-Los-per'] }} % </p>
+          <p class="text text-info ">Switch WIN Percentage: {{ gamedata['Switch-win-per'] }} % </p>
+          <p class="text text-info "> Switch LOSS Percentage: {{ gamedata['Switch-Los-per'] }} % </p>
+
+          <p class="font-weight-bold text-success">Played: {{ gamedata['Played'] }}</p>
+          <p class="font-weight-bold text-success">Switch: {{ gamedata['Switch'] }}</p>
+          <p class="font-weight-bold text-success">Keep: {{ gamedata['Keep'] }}</p>
+          <p class="font-weight-bold text-success">Switch WINS: {{ gamedata['Switch-wins'] }} | Switch LOSS: {{
+            gamedata['Switch-wins'] }} </p>
+          <p class="font-weight-bold text-success">keep WINS: {{ gamedata['keep-wins'] }} | keep LOSS: {{
+            gamedata['keep-loss'] }} </p>
+        </div>
+
+        <div class="col-md-2">
+          <button class="btn btn-warning" (click)="ResetbtnClick()"> Reset </button>
+        </div>
+
+      </table>
+    </div>
+
+    
+  </div>
+</div>
+  <div class="container-fluid">
+<div class="form-horizontal">
+  <fieldset>
+  
+    <div class="form-group">
+  <h5> Repeat Action </h5>
+  </div>
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="txtcount">Count :</label>  
+    <div class="col-md-3">
+    <input id="txtcount" name="txtcount" type="text" placeholder="enter count " class="form-control input-sm" [(ngModel)]="txtcount">
+      
+    </div>
+  </div>
+  
+  <!-- Multiple Radios -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="radios">Action type:</label>
+    <div class="col-md-4">
+    <div class="radio">
+      <label for="radios-0">
+        <input type="radio" name="radios" id="radios-0" value="Switch" [(ngModel)]="selectedopt">
+        Switch
+      </label>
+    </div>
+    <div class="radio">
+      <label for="radios-1">
+        <input type="radio" name="radios" id="radios-1" value="Keep" [(ngModel)]="selectedopt">
+        Keep
+      </label>
+    </div>
+    </div>
+  </div>
+  
+  <!-- Button -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="gobtn"></label>
+    <div class="col-md-4">
+      <button id="gobtn" name="gobtn" class="btn btn-primary" (click)="RepeatAction($event)">Start</button>
+    </div>
+  </div>
+  
+  </fieldset>
+</div>
+
+</div>
