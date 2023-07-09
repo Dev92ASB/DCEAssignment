@@ -7,9 +7,9 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root'
 })
 export class GameserviceService {
-  //ResponseCARPOS :any;
+  ResponseCARPOS :any;
   ResponceALLData : any;
-  //ResponceNetDorTOOPEN :any;
+  ResponceNetDorTOOPEN :any;
   constructor(private http : HttpClient,) 
   { 
 
@@ -36,14 +36,19 @@ export class GameserviceService {
    
   }
     
-   getCarIN()
+   async getCarIN()
   {
-    
-      return this.http.post(this.getCarin,{},{responseType: 'text'});
-       
-        
-    
-      
+    try{
+      const data = this.http.post(this.getCarin,{},{responseType: 'text'});
+     this.ResponseCARPOS= await firstValueFrom(data);
+     return this.ResponseCARPOS;  
+
+    }
+    catch(error)
+    {
+      console.log(error);
+    }
+         
   }
 
    RepeatAct(atype : string , count :string ){

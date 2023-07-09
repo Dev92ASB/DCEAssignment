@@ -29,3 +29,7 @@ margin-top: 50px;
     margin-bottom: 50px;
     margin-top:  10px;
 }
+.blur-effect {
+    filter: blur(50px); 
+  }
+  
