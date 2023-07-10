@@ -32,4 +32,17 @@ margin-top: 50px;
 .blur-effect {
     filter: blur(50px); 
   }
+
+.load-container
+{
+        position: fixed;
+        top :50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+}
+.load-container img {
+    width: 400px; /* Adjust the width as needed */
+   
+  }
+  
   

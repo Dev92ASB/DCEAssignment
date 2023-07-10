@@ -13,7 +13,8 @@ import { Location } from '@angular/common';
   })
 export class GamePuzzleComponent {
   constructor(private api: GameserviceService) { }
-
+   
+  loading_gif : string ="../../assets/img/loading.gif";
   doorimg: string = "../../assets/img/door.png";
   carimg: string = "../../assets/img/car.png";
   goatimg: string = "../../assets/img/goat.png";
@@ -23,7 +24,7 @@ export class GamePuzzleComponent {
   loading: boolean = true;
   isScreenBlurred: boolean = false;
 
-  dorImg: string = "";
+  
 
   dorAimg: string = "";
   dorBimg: string = "";
@@ -83,17 +84,37 @@ export class GamePuzzleComponent {
   ResetGameData_() {
     
     this.gamedata = null;
-    this.api.ResetGameData().subscribe(data => { console.log(data.toString()) });
-    this.getAlldata();
+    this.api.ResetGameData().subscribe(data => { console.log(data.toString()); 
+      this.getAlldata(); });
+    
     this.txtcount = "";
     this.selectedopt = "Switch";
-    this.resetimgs();
     
+    this.nextopen = "";
+    this.Carin = "";
+    this.dorAimg = this.defaultImgsrc;
+    this.dorBimg = this.defaultImgsrc;
+    this.dorCimg = this.defaultImgsrc;
+    this.ClickedDorID = "";
+    this.loading = true;
+    this.resetimgs();
+    this.GetRandomCarPos();
+   
+   // this.PrintVariables();
     //this.getAlldata();
     //window.location.reload();
 
 
   }
+
+  PrintVariables(){
+   
+    const vb = "Door Image A = "+this.dorAimg+ " | Door Image B =  "+this.dorBimg+" | Door Image C = " + this.dorCimg +
+     " | Random Car Pos = "+this.Carin+ " | Next Open Door Variable = " +this.nextopen+" Clicked door variable =" +this.ClickedDorID+ "";
+    window.alert(vb);
+
+  }
+
   ResetbtnClick() {
     this.ResetGameData_();
     //window.location.reload();
@@ -101,13 +122,13 @@ export class GamePuzzleComponent {
   DisplayDialog: boolean = false;
   ngOnInit() {
 
+    this.GetRandomCarPos();
+    this.ResetGameData_();
+    this.getAlldata();
+    
     this.dorAimg = this.defaultImgsrc;
     this.dorBimg = this.defaultImgsrc;
     this.dorCimg = this.defaultImgsrc;
-    this.ResetGameData_();
-    this.getAlldata();
-    this.GetRandomCarPos();
-
     //await this.api.getNextDortoOpen().subscribe((data :any) => { this.nextopen = data; });
 
 
@@ -121,25 +142,28 @@ export class GamePuzzleComponent {
     const doors = ["A", "B", "C"];
     const IndexofClickedDor = doors.indexOf(this.ClickedDorID);
     const IndexofOpendDOr = doors.indexOf(this.nextopen);
-    if (IndexofClickedDor !== -1) {
-      doors.splice(IndexofClickedDor, 1);
-    }
-    if (IndexofOpendDOr !== -1) {
-      doors.slice(IndexofOpendDOr, 1);
-    }
-    //window.alert(doors.at(0));
-    const dorname = doors[0].toString();
+    const newDoors = doors.filter((_, index) => index !== IndexofClickedDor && index !== IndexofOpendDOr);
+
+
+    const dorname = newDoors.toString();
+
+    //this.PrintVariables();
+    //window.alert("Switched to dor = " +dorname);
+    //window.alert("Arry = " +newDoors);
+    
     this.openWInDor();
-    this.api.perfomAction("Switch", dorname).subscribe(responce => { window.alert(responce.toString()) });
-    this.getAlldata();
+    this.api.perfomAction("Switch", dorname).subscribe(responce => { window.alert(responce.toString());
+    this.getAlldata(); });
+    
     //this.closeDialog();
   }
 
   KeepSelection(): void {
     this.closeDialog();
     this.openWInDor();
-    this.api.perfomAction("Keep", this.ClickedDorID).subscribe(responce => { window.alert(responce.toString()) });
-    this.getAlldata();
+    this.api.perfomAction("Keep", this.ClickedDorID).subscribe(responce => { window.alert(responce.toString()); 
+      this.getAlldata(); });
+   
   }
 
   opendialog(): void {
